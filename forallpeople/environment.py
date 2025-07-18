@@ -191,7 +191,7 @@ class Environment:
 def evaluate_factor_expression(factor_expression: str) -> Union[int, Fraction]:
     """
     Returns the evaluated result of 'factor_expression' which is a str representing
-    an arithmetic expression .
+    an arithmetic expression.
     """
     ops = {"+": add, "-": sub, "*": mul, "/": truediv, "**": pow}
     expr_elements = re.findall("[0-9.]+|(?:\*\*|\*|/|\+|\-)", factor_expression)
