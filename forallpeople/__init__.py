@@ -242,6 +242,8 @@ class Physical(object):
         elif prefix_bool and dims_orig == Dimensions(1, 0, 0, 0, 0, 0, 0):
             kg_bool = True
             prefix = phf._auto_prefix(val, power, kg=kg_bool)
+        elif prefix_bool and dims_orig == Dimensions(1, 2, -2, 0, 0, 0, 0) and val >= 1000:
+            prefix = "k" # Force kNm
         elif prefix_bool:
             prefix = phf._auto_prefix(val, power, kg=kg_bool)
 

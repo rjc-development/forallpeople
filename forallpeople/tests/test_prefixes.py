@@ -10,12 +10,12 @@ si.environment("structural_copy", top_level=True)
 env_dims = si.environment.units_by_dimension
 env_fact = si.environment.units_by_factor
 units = {
-    "A": 50000 * kg,
+    "A": 500000 * kg,
     "B": 10 * m,
     "C": 2 * s,
     "D": 1e6 * kN,
-    "E": 0.2 * kip,
-    "F": 5 * kN * 1e3 * kip,
+    "E": 0.2 * mm,
+    "F": 5 * kN * 1e3 * s,
 }
 parameters = [
     (value, phf._powers_of_derived(value.dimensions, env_dims))
