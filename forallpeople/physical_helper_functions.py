@@ -447,10 +447,11 @@ def _dims_basis_multiple(dims: Dimensions) -> Optional[Dimensions]:
     return dims
 
 
-def _auto_prefix(value: float, power: Union[int, float], kg: bool = False) -> str:
+def _auto_prefix(value: float, dims: Dimensions, power: Union[int, float], kg: bool = False) -> str:
     """
     Returns a string "prefix" of an appropriate value if self.value should be prefixed
     i.e. it is a big enough number (e.g. 5342 >= 1000; returns "k" for "kilo")
+    Modified to allow mandating of certain prefixes for unit types above a given value.
     """
     if value == 0:
         return ""
@@ -462,6 +463,13 @@ def _auto_prefix(value: float, power: Union[int, float], kg: bool = False) -> st
     value_power_of_ten = math.log10(abs_val)
     value_power_of_1000 = value_power_of_ten // (3 * power)
     prefix_power_of_1000 = value_power_of_1000 * 3 + kg_factor
+
+    # Mandate specific prefixes for unit types above a cutoff
+    if value_power_of_1000 >= 1 and (dims == Dimensions(1, 2, -2, 0, 0, 0, 0) or dims == Dimensions(1, 1, -2, 0, 0, 0, 0)):
+        return "k" # Cap at kN and kNm max
+    elif value_power_of_1000 >= 2 and dims == Dimensions(1, -1, -2, 0, 0, 0, 0):
+        return "M" # Cap at MPa max
+
     try:
         return _prefix_lookups[prefix_power_of_1000]
     except KeyError:

@@ -241,11 +241,11 @@ class Physical(object):
             prefix = prefixed
         elif prefix_bool and dims_orig == Dimensions(1, 0, 0, 0, 0, 0, 0):
             kg_bool = True
-            prefix = phf._auto_prefix(val, power, kg=kg_bool)
-        elif prefix_bool and dims_orig == Dimensions(1, 2, -2, 0, 0, 0, 0) and val >= 1000:
-            prefix = "k" # Force kNm
+            prefix = phf._auto_prefix(val, dims_orig, power, kg=kg_bool)
+        # elif prefix_bool and dims_orig == Dimensions(1, 2, -2, 0, 0, 0, 0) and val >= 1000:
+        #    prefix = "k" # Force kNm
         elif prefix_bool:
-            prefix = phf._auto_prefix(val, power, kg=kg_bool)
+            prefix = phf._auto_prefix(val, dims_orig, power, kg=kg_bool)
 
         # Format the exponent (may not be used, though)
         exponent = phf._format_exponent(power, repr_format=template)
@@ -317,7 +317,7 @@ class Physical(object):
         if self.prefixed:
             prefix = self.prefixed
         else:
-            prefix = phf._auto_prefix(value, power, kg_bool)
+            prefix = phf._auto_prefix(value, dims, power, kg_bool)
         float_value = phf._auto_prefix_value(value, power, prefix, kg_bool)
         return float_value
 

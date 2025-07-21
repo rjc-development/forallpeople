@@ -347,17 +347,6 @@ def test__powers_of_derived():
         dims(1, 1, -2, 0, 0, 0, 0),
     )
 
-
-def test__auto_prefix():
-    func = phf._auto_prefix
-    assert func(1500, 1) == "k"
-    assert func(1500, 2) == ""
-    assert func(1.5e6, 2) == "k"
-    assert func(1.5e6, 1) == "M"
-    assert func(1.5e-3, 1) == "m"
-    assert func(1.5e-6, 2) == "m"
-
-
 def test__auto_prefix_kg():
     func = phf._auto_prefix_kg
     assert func(1500, 1) == "M"

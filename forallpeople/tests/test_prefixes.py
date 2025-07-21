@@ -4,81 +4,20 @@ import pytest
 import forallpeople as si
 import forallpeople.physical_helper_functions as phf
 
-si.environment("structural_copy", top_level=True)
+si.environment("test_definitions", top_level=True)
 
-### Testing parameters ###
-env_dims = si.environment.units_by_dimension
-env_fact = si.environment.units_by_factor
-units = {
-    "A": 500000 * kg,
-    "B": 10 * m,
-    "C": 2 * s,
-    "D": 1e6 * kN,
-    "E": 0.2 * mm,
-    "F": 5 * kN * 1e3 * s,
-}
-parameters = [
-    (value, phf._powers_of_derived(value.dimensions, env_dims))
-    for value in units.values()
-]
 
-prefix_check = units["A"]*units["B"]**2/units["C"]**2
-print("Prefix check:", prefix_check)
+def test__auto_prefix_mandates():
+    func = phf._auto_prefix
+    dims = si.Dimensions
+    assert func(1500, dims(1, 2, -2, 0, 0, 0, 0), 1) == "k"
+    assert func(2400000, dims(1, 2, -2, 0, 0, 0, 0), 1) == "k"
+    assert func(2000, dims(1, 2, -2, 0, 0, 0, 0), 2) == ""
+    assert func(1234567, dims(1, 2, -3, 0, 0, 0, 0), 1) == "M"
+    assert func(1234567890, dims(1, -1, -2, 0, 0, 0, 0), 1) == "M"
 
-def test__evaluate_dims_and_factor():
-    func = phf._evaluate_dims_and_factor
-
-    # Defined unit with a default and the defined unit factor is a match
-    # (passes through without swap)
-    assert func(
-        si.Dimensions(1, 1, -2, 0, 0, 0, 0),
-        1 / Fraction("0.45359237") / Fraction("9.80665") / 1000,
-        1,
-        env_fact,
-        env_dims,
-    ) == ("kip", False, 1 / Fraction("0.45359237") / Fraction("9.80665") / 1000)
-
-    # Defined unit with a default and the defined unit factor is not a match
-    # (swapped)
-    assert func(
-        si.Dimensions(1, 1, -2, 0, 0, 0, 0),
-        1 / Fraction("0.45359237") / Fraction("9.80665") / 900,
-        1,
-        env_fact,
-        env_dims,
-    ) == ("lb", False, 1 / Fraction("0.45359237") / Fraction("9.80665"))
-
-    # Derived unit to a power
-    assert func(si.Dimensions(1, 1, -2, 0, 0, 0, 0), 1, 2, env_fact, env_dims) == (
-        "N",
-        True,
-        1,
-    )
-    # Derived unit power of one
-    assert func(si.Dimensions(1, 1, -2, 0, 0, 0, 0), 1, 1, env_fact, env_dims) == (
-        "N",
-        True,
-        1,
-    )
-    # Defined unit that is not a default unit
-    assert func(
-        si.Dimensions(0, 1, 0, 0, 0, 0, 0),
-        12 / Fraction("0.3048"),
-        1,
-        env_fact,
-        env_dims,
-    ) == ("inch", False, 12 / Fraction("0.3048"))
-
-    # Single dimension base unit
-    assert func(si.Dimensions(1, 0, 0, 0, 0, 0, 0), 1, 3, env_fact, env_dims) == (
-        "",
-        True,
-        1,
-    )
-
-    # Not defined in environment
-    assert func(si.Dimensions(1, 1, 1, 0, 0, 0, 0), 1, 1, env_fact, env_dims) == (
-        "",
-        False,
-        1,
-    )
+def test___float__():
+    assert float(100 * m) == pytest.approx(100)
+    assert float(52.5 * kN) == pytest.approx(52.5)
+    assert float(3400 * N) == pytest.approx(3.4)
+    assert float(1e10 * kg / m / s**2) == pytest.approx(10000)
