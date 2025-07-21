@@ -10,17 +10,20 @@ si.environment("structural_copy", top_level=True)
 env_dims = si.environment.units_by_dimension
 env_fact = si.environment.units_by_factor
 units = {
-    "A": 0.05 * kg,
-    "B": 3.2e-3 * m,
-    "C": 1000 * ft,
-    "D": 1e6 * N,
+    "A": 50000 * kg,
+    "B": 10 * m,
+    "C": 2 * s,
+    "D": 1e6 * kN,
     "E": 0.2 * kip,
-    "F": 5 * N * 1e3 * kip,
+    "F": 5 * kN * 1e3 * kip,
 }
 parameters = [
     (value, phf._powers_of_derived(value.dimensions, env_dims))
     for value in units.values()
 ]
+
+prefix_check = units["A"]*units["B"]**2/units["C"]**2
+print("Prefix check:", prefix_check)
 
 def test__evaluate_dims_and_factor():
     func = phf._evaluate_dims_and_factor

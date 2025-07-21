@@ -14,8 +14,7 @@
         "Dimension": [1,1,-2,0,0,0,0]},
     "kN": {
         "Dimension": [1,1,-2,0,0,0,0],
-        "Value": 1000,
-        "Default": true},
+        "Value": 1000},
     "MN": {
         "Dimension": [1,1,-2,0,0,0,0],
         "Value": 1000000},
