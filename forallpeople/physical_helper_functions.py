@@ -106,7 +106,6 @@ def _evaluate_dims_and_factor(
     derived = _get_derived_unit(
         dims=dims_orig, units_env=env_dims
     )  # Empty dict when no match
-    print(derived)
 
     # HERE! You are trying to figure out how prioritize between
     # the defined, derived, and default units

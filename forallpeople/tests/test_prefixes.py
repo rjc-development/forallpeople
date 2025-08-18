@@ -4,7 +4,7 @@ import pytest
 import forallpeople as si
 import forallpeople.physical_helper_functions as phf
 
-si.environment("test_definitions", top_level=True)
+si.environment("structural", top_level=True)
 
 
 def test__auto_prefix_mandates():
