@@ -51,15 +51,12 @@
     "kipft": {
         "Dimension": [1,2,-2,0,0,0,0],
         "Symbol": "kip·ft",
-        "Factor": "1/0.45359237/9.80665/0.3048/1000"},
+        "Factor": "1/0.45359237/9.80665/0.3048/1000",
+        "Default": true},
     "psf": {
         "Dimension": [1,-1,-2,0,0,0,0],
         "Factor": "0.3048**2/0.45359237/9.80665",
         "Symbol": "psf"},
-    "lbin": {
-        "Dimension": [1,2,-2,0,0,0,0],
-        "Symbol": "lb·in",
-        "Factor": "12/0.45359237/9.80665/0.3048"},
     "kipin": {
         "Dimension": [1,2,-2,0,0,0,0],
         "Symbol": "kip·in",
@@ -117,6 +114,20 @@
     "N_m3": {
         "Dimension": [1,-2,-2,0,0,0,0],
         "Symbol": "N/m³"},
+    "kft2": {
+        "Dimension": [1,3,-2,0,0,0,0],
+        "Symbol": "kip·ft²",
+        "Factor": "1/0.45359237/9.80665/0.3048**2/1000",
+        "Default": true},
+    "k2ft4": {
+        "Dimension": [2,6,-4,0,0,0,0],
+        "Symbol": "kip²·ft⁴",
+        "Factor": "0.00241982332**2",
+        "Default": true},
+    "kN2m4": {
+        "Dimension": [2,6,-4,0,0,0,0],
+        "Symbol": "kN²·m⁴",
+        "Value": 1000000},
     "Nm2": {
         "Dimension": [1,3,-2,0,0,0,0],
         "Symbol": "N·m²"},
@@ -124,10 +135,6 @@
         "Dimension": [1,3,-2,0,0,0,0],
         "Symbol": "lb·ft²",
         "Factor": "1/0.45359237/9.80665/0.3048**2"},
-    "kft2": {
-        "Dimension": [1,3,-2,0,0,0,0],
-        "Symbol": "kip·ft²",
-        "Factor": "1/0.45359237/9.80665/0.3048**2/1000"},
     "J": {
         "Dimension": [1,2,-2,0,0,0,0],
         "Symbol": "J"},
